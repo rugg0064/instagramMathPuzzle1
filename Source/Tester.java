@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 public class Tester 
 {
 	public static void main(String[] args) 
@@ -24,12 +25,18 @@ public class Tester
 		msl.printList();
 		Random r = new Random();
 		ArrayList<Integer> al = new ArrayList<Integer>();
-		int initalsize = 1_000_000;
+		int initalsize = 100_000;
 		for(int i = 0; i < initalsize; i++)
 		{
 			al.add(i);
 		}
+		ArrayList<Integer> al2 = new ArrayList<Integer>();
+		for(int i = 0; i < initalsize; i++)
+		{
+			al2.add(al.get(i));
+		}
 		
+		long t1 = System.currentTimeMillis();
 		while(al.size() > initalsize/4)
 		{
 			int index = r.nextInt(al.size());
@@ -37,6 +44,18 @@ public class Tester
 			//System.out.printf("i:%d v:%s%n", index, al.get(index));
 			al.remove(index);
 		}
-		msl.printList();
+		System.out.printf("MySkipList took %d millis%n", System.currentTimeMillis() - t1);
+		//msl.printList();
+
+		PriorityQueue<Integer> q = new PriorityQueue<Integer>(); 
+		long t2 = System.currentTimeMillis();
+		while(al2.size() > initalsize/4)
+		{
+			int index = r.nextInt(al.size());
+			q.add(al.get(index));
+			//System.out.printf("i:%d v:%s%n", index, al.get(index));
+			al2.remove(index);
+		}
+		System.out.printf("Queue took %d millis%n", System.currentTimeMillis() - t2);
 	}
 }
