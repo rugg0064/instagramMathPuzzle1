@@ -1,42 +1,33 @@
-import java.util.Random;
-import java.util.ArrayList;
+
 public class Tester 
 {
 	public static void main(String[] args) 
 	{
-		try
+		for(int a = 1; a < 10; a++)
 		{
-			Random r = new Random();
-			for(int i = 0; i < 100_000; i++)
+			for(int b = 1; b < 10; b++)
 			{
-				MyNode<Integer> a = new MyNode<Integer>(Integer.valueOf(15));
-				a.resize(r.nextInt(100));
+				for(int c = 1; c < 10; c++)
+				{
+					if(c %2 == 0)
+					{
+						continue;
+					}
+					for(int d = 1; d < 10; d++)
+					{
+						if(a == b || a == c || a == d ||
+						   b == c || b == d ||
+						   c == d)
+						{
+							continue;
+						}
+						if(((a*100 + b*10 + c) * 3) == (d*100 + d*10 + d))
+						{
+							System.out.printf("A: %d; B: %d; C: %d; D: %d%n", a, b, c, d);
+						}
+					}
+				}
 			}
 		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		MySkipList.test();
-
-		MySkipList<Integer> msl = new MySkipList<Integer>();
-		msl.printList();
-		Random r = new Random();
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		int initalsize = 1_000_000;
-		for(int i = 0; i < initalsize; i++)
-		{
-			al.add(i);
-		}
-		
-		while(al.size() > initalsize/4)
-		{
-			int index = r.nextInt(al.size());
-			msl.insert(al.get(index));
-			//System.out.printf("i:%d v:%s%n", index, al.get(index));
-			al.remove(index);
-		}
-		msl.printList();
 	}
 }
